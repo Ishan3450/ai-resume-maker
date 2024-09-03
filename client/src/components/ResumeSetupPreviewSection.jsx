@@ -1,17 +1,17 @@
 import { ResumeInfoContext } from '@/context/ResumeInfoContext'
 import { ContactIcon, Phone } from 'lucide-react';
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 
 const ResumeSetupPreviewSection = () => {
     const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
 
     return (
-        <div className='w-[60%] py-5 px-8 border flex flex-col gap-6 border-t-8 max-h-[80vh] overflow-y-scroll h-full'>
+        <div className='w-[60%] py-5 px-8 border flex flex-col gap-6 border-t-8 mb-20'>
             {/* Personal Details */}
             <div>
                 <h1 className='font-semibold text-3xl'>{resumeInfo?.firstName} {resumeInfo?.lastName}</h1>
                 <div className='text-gray-500 text-lg'>{resumeInfo?.address}</div>
-                
+
                 <div className='mt-1 flex gap-1 items-center'>
                     <div className='flex items-center gap-1'><Phone className='w-4 h-4' /> {resumeInfo?.phone} |</div>
                     <div> {resumeInfo?.email}</div>
@@ -33,7 +33,7 @@ const ResumeSetupPreviewSection = () => {
                 <h2 className='text-2xl font-semibold'>Technical Skills</h2>
                 <ul className='list-disc ml-14 mt-2'>
                     {Object.entries(resumeInfo?.skills).map(([key, value]) => (
-                        <li key={key}>
+                        value && <li key={key}>
                             <span className='font-semibold'>{key}</span>: {value}
                         </li>
                     ))}
@@ -49,14 +49,11 @@ const ResumeSetupPreviewSection = () => {
                             <div className='flex gap-2 items-baseline text-sm mt-2'>
                                 <h3 className='text-lg font-medium'>{work.title}</h3>
                                 -
-                                <div className='text-gray-500'>{work.companyName} |</div>
+                                <div className='text-gray-500'>{work.companyName}, {work.city}, {work.state} |</div>
                                 <div className='text-gray-500'>{work?.startDate} - {work?.endDate ? work.endDate : "Present"}</div>
                             </div>
 
-                            {/*: work summary will be edited later */}
-                            <div className='mt-1 ml-14 text-justify'>
-                                {work?.workSummary}
-                            </div>
+                            <div className='mt-1 ml-14 text-justify' dangerouslySetInnerHTML={{ __html: work?.workSummary }} />
                         </div>
                     ))
                 }

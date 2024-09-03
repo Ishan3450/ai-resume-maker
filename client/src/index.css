@@ -70,3 +70,14 @@
   width: 90vw;
   margin: auto;
 }
+
+/* rich text editor style fix */
+.rsw-ce ul {
+  list-style: disc;
+  padding-left: 2em;
+}
+
+.rsw-ce ol {
+  list-style: decimal;
+  padding-left: 2em;
+}

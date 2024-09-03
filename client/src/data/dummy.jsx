@@ -63,10 +63,10 @@ export default {
         }
     ],
     skills: {
-        "Frontend": 'Angular, React, React Native',
-        "Backend": 'Node',
-        "Databse": 'MySql, MongoDB',
-        "Other": 'DevOps, Kubernetes, AWS'
+        Frontend: 'Angular, React, React Native',
+        Backend: 'Node',
+        Database: 'MySql, MongoDB',
+        Other: 'DevOps, Kubernetes, AWS'
     },
     links: [
 
