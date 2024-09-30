@@ -84,11 +84,11 @@ const ProfessionalExperience = () => {
                   </div>
                   <div className='flex flex-col gap-1'>
                     <Label htmlfor='startDate'>Start date</Label>
-                    <Input type="date" name="startDate" id="startDate" value={experience.startDate} onChange={(e) => handleInputChange(e, index)} />
+                    <Input name="startDate" id="startDate" value={experience.startDate} onChange={(e) => handleInputChange(e, index)} />
                   </div>
                   <div className='flex flex-col gap-1'>
                     <Label htmlfor='endDate'>End Date <span className='text-xs text-gray-400'>(Leave empty if present)</span></Label>
-                    <Input type="date" name="endDate" id="endDate" value={experience.endDate} onChange={(e) => handleInputChange(e, index)} />
+                    <Input name="endDate" id="endDate" value={experience.endDate} onChange={(e) => handleInputChange(e, index)} />
                   </div>
 
                   <div className='col-span-2'>

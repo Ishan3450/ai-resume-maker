@@ -13,7 +13,6 @@ import {
 import { Button } from "./ui/button";
 import { Input } from "@/components/ui/input"
 import GlobalApi from "../../service/GlobalApi";
-import { v4 as uuidv4 } from 'uuid';
 import SingleResumeCard from "./SingleResumeCard";
 
 const Dashboard = () => {
@@ -29,13 +28,11 @@ const Dashboard = () => {
   const createResume = async () => {
     try {
       setLoading(true);
-      const uuid = uuidv4();
       const response = await GlobalApi.CreateNewResume({
         data: {
           resumeTitle,
           username: user?.fullName,
           userEmail: user?.primaryEmailAddress?.emailAddress,
-          resumeId: uuid
         }
       });
 

@@ -2,7 +2,6 @@ import { ResumeInfoContext } from '@/context/ResumeInfoContext';
 import { Label } from '@radix-ui/react-label';
 import React, { useContext } from 'react'
 import { Input } from '../ui/input';
-import { Button } from '../ui/button';
 
 const PersonalDetails = () => {
   const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
