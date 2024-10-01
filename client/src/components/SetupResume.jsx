@@ -1,14 +1,19 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import ResumeSetupFormSection from './ResumeSetupFormSection';
 import ResumeSetupPreviewSection from './ResumeSetupPreviewSection';
 import Header from './common/Header';
 import { ResumeInfoContext } from '@/context/ResumeInfoContext';
-import dummy from '@/data/dummy';
+import useGetResumeById from '@/hooks/useGetResumeById';
 
 const SetupResume = () => {
     const { resumeId } = useParams();
-    const [resumeInfo, setResumeInfo] = useState(dummy);
+    const { resume } = useGetResumeById(resumeId);
+    const [resumeInfo, setResumeInfo] = useState(resume);
+
+    useEffect(() => {
+        setResumeInfo(resume);
+    }, [resume]);
 
     return (
         <ResumeInfoContext.Provider value={{ resumeInfo, setResumeInfo }}>

@@ -1,10 +1,11 @@
 const { Router } = require("express");
-const { createResume, getResumes, updateResume } = require("../controllers/resumeController");
+const { createResume, getResumes, updateResume, getResumeById } = require("../controllers/resumeController");
 
 const resumeRouter = Router();
 
 resumeRouter.post("/createResume", createResume);
-resumeRouter.get("/getResumes", getResumes);
+resumeRouter.post("/getResumes", getResumes);
 resumeRouter.put("/:resumeId/update", updateResume);
+resumeRouter.get("/:resumeId/get", getResumeById);
 
 module.exports = resumeRouter;

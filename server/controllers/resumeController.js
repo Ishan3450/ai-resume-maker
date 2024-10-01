@@ -12,7 +12,7 @@ async function createResume(req, res) {
 
     const resume = await Resume.create({
         resumeTitle,
-        email: userEmail
+        createdByEamil: userEmail
     });
     res.status(200).json({
         resumeId: resume._id,
@@ -31,7 +31,7 @@ async function getResumes(req, res) {
         });
     }
 
-    const resumes = await Resume.find({ email: userEmail });
+    const resumes = await Resume.find({ createdByEamil: userEmail });
     res.status(200).json({
         resumes,
         success: true
@@ -61,4 +61,21 @@ async function updateResume(req, res) {
     });
 }
 
-module.exports = { createResume, getResumes, updateResume }
+async function getResumeById(req, res) {
+    const { resumeId } = req.params;
+
+    if (!resumeId) {
+        return res.status(400).json({
+            message: "Please provide resume id",
+            success: false
+        });
+    }
+
+    const resume = await Resume.findById(resumeId);
+    res.status(200).json({
+        resume,
+        success: true
+    });
+}
+
+module.exports = { createResume, getResumes, updateResume, getResumeById }

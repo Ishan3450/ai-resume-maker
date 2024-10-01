@@ -14,6 +14,7 @@ import { Button } from "./ui/button";
 import { Input } from "@/components/ui/input"
 import GlobalApi from "../../service/GlobalApi";
 import SingleResumeCard from "./SingleResumeCard";
+import toast from "react-hot-toast";
 
 const Dashboard = () => {
   const { user, isSignedIn, isLoaded } = useUser();
@@ -29,15 +30,13 @@ const Dashboard = () => {
     try {
       setLoading(true);
       const response = await GlobalApi.CreateNewResume({
-        data: {
-          resumeTitle,
-          username: user?.fullName,
-          userEmail: user?.primaryEmailAddress?.emailAddress,
-        }
+        resumeTitle,
+        userEmail: user?.primaryEmailAddress?.emailAddress,
       });
 
-      if (response?.data?.data) {
-        navigate(`/dashboard/resume/${response.data.data.id}/edit`);
+      if (response?.data?.success) {
+        toast.success(response.data.message);
+        navigate(`/dashboard/resume/${response.data.resumeId}/edit`);
       }
     } catch (error) {
       console.log(error);
@@ -51,8 +50,8 @@ const Dashboard = () => {
     const fetchUserResumes = async () => {
       const response = await GlobalApi.GetUserResumes(user?.primaryEmailAddress?.emailAddress);
 
-      if (response?.data) {
-        setUserResumes(response.data.data);
+      if (response?.data?.success) {
+        setUserResumes(response.data.resumes);
       }
     }
     fetchUserResumes();
@@ -68,7 +67,7 @@ const Dashboard = () => {
           <span className="text-[#20B2AA] font-bold"> AI.</span>
         </div>
 
-        <div className="h-full mt-7 grid grid-cols-5 gap-5">
+        <div className="mt-7 grid grid-cols-5 gap-5">
           <div className="bg-gray-200 flex items-center justify-center aspect-square border-2 border-dashed border-gray-400 rounded-xl cursor-pointer hover:bg-gray-300 transition-all duration-150 hover:shadow-xl" onClick={() => setOpen(true)}>
             <Plus className="text-gray-400" />
           </div>

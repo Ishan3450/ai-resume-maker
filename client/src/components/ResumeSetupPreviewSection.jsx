@@ -1,12 +1,12 @@
 import { ResumeInfoContext } from '@/context/ResumeInfoContext'
 import { ContactIcon, Phone } from 'lucide-react';
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 
 const ResumeSetupPreviewSection = () => {
-    const { resumeInfo, setResumeInfo } = useContext(ResumeInfoContext);
+    const { resumeInfo } = useContext(ResumeInfoContext);
 
     return (
-        <div className='w-[60%] py-5 px-8 border flex flex-col gap-6 border-t-8 mb-20'>
+        <div className='min-w-[60%] py-5 px-6 flex flex-col gap-6 border border-t-8 mb-10 no-border'>
             {/* Personal Details */}
             <div>
                 <h1 className='font-semibold text-3xl'>{resumeInfo?.firstName} {resumeInfo?.lastName}</h1>
@@ -24,15 +24,15 @@ const ResumeSetupPreviewSection = () => {
 
             {/* Summary */}
             <div>
-                <h2 className='text-2xl font-semibold'>Summary</h2>
-                <div className='mt-1 text-justify'>{resumeInfo?.summary}</div>
+                <h2 className='text-xl font-semibold'>Summary</h2>
+                <div className='mt-1 text-sm text-justify'>{resumeInfo?.summary}</div>
             </div>
 
             {/* Skills */}
             <div>
-                <h2 className='text-2xl font-semibold'>Technical Skills</h2>
-                <ul className='list-disc ml-14 mt-2'>
-                    {Object.entries(resumeInfo?.skills).map(([key, value]) => (
+                <h2 className='text-xl font-semibold'>Technical Skills</h2>
+                <ul className='list-disc text-sm ml-14 mt-1'>
+                    {resumeInfo?.skills && Object.entries(resumeInfo?.skills).map(([key, value]) => (
                         value && <li key={key}>
                             <span className='font-semibold'>{key}</span>: {value}
                         </li>
@@ -42,18 +42,18 @@ const ResumeSetupPreviewSection = () => {
 
             {/* Professional Experience */}
             <div>
-                <h2 className='text-2xl font-semibold'>Professional Experience</h2>
+                <h2 className='text-xl font-semibold'>Professional Experience</h2>
                 {
-                    resumeInfo?.experience.map(work => (
+                    resumeInfo?.experience && resumeInfo?.experience.map(work => (
                         <div>
-                            <div className='flex gap-2 items-baseline text-sm mt-2'>
+                            <div className='flex gap-2 items-baseline text-sm mt-1'>
                                 <h3 className='text-lg font-medium'>{work.title}</h3>
                                 -
                                 <div className='text-gray-500'>{work.companyName}, {work.city}, {work.state} |</div>
                                 <div className='text-gray-500'>{work?.startDate} - {work?.endDate ? work.endDate : "Present"}</div>
                             </div>
 
-                            <div className='mt-1 ml-14 text-justify' dangerouslySetInnerHTML={{ __html: work?.workSummary }} />
+                            <div className='mt-1 text-sm ml-14' dangerouslySetInnerHTML={{ __html: work?.workSummary }} />
                         </div>
                     ))
                 }
@@ -61,35 +61,33 @@ const ResumeSetupPreviewSection = () => {
 
             {/* Projects */}
             <div>
-                <h2 className='text-2xl font-semibold'>Projects</h2>
+                <h2 className='text-xl font-semibold'>Projects</h2>
 
-                {resumeInfo?.projects.map(project => (
-                    <div className='mt-2'>
-                        <div className='flex gap-2 items-baseline'>
+                {resumeInfo?.projects && resumeInfo?.projects.map(project => (
+                    <div className='mt-1'>
+                        <div className='flex gap-2 items-baseline text-sm'>
                             <h3 className='text-lg font-medium'>{project.name}</h3>
                             -
                             <a href={project?.github} className='text-blue-400 underline font-semibold' target='_blank'>Link</a>
                         </div>
 
-                        <div className='flex gap-2'>
+                        <div className='flex gap-2 mt-1 text-sm'>
                             <div className='font-semibold'>Tech Stack: </div>
                             <div>{project.techStack}</div>
                         </div>
 
-                        <ul className='list-disc ml-16 mt-1 text-justify'>
-                            <li>{project.description}</li>
-                        </ul>
+                        <div className='ml-16 text-sm mt-1' dangerouslySetInnerHTML={{ __html: project?.description }}></div>
                     </div>
                 ))}
             </div>
 
             {/* Educational background */}
             <div>
-                <h2 className='text-2xl font-semibold'>Education</h2>
+                <h2 className='text-xl font-semibold'>Education</h2>
 
-                <div className='mt-2 flex flex-col gap-1'>
-                    {resumeInfo?.education.map(info => (
-                        <div className='flex gap-1'>
+                <div className='mt-1 flex flex-col gap-1'>
+                    {resumeInfo?.education && resumeInfo?.education.map(info => (
+                        <div className='flex gap-1 text-sm'>
                             <span className='font-semibold'>{info.universityName}, </span>
                             <span className='text-gray-600 flex gap-1'>
                                 <span>{info.degree} in {info.major}</span>

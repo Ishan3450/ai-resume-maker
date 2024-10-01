@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 
 const resumeSchema = new mongoose.Schema({
-    resumeTitle: {type: String, default: "Resume", required: true},
+    resumeTitle: { type: String, default: "Resume", required: true },
+    createdByEamil: { type: String, required: true },
     firstName: { type: String, default: 'James' },
     lastName: { type: String, default: 'Carter' },
     address: { type: String, default: 'Ahmedabad, Gujarat, India' },
