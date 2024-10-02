@@ -3,6 +3,7 @@
 I've developed an AI-powered resume maker designed to simplify the process of creating professional resumes. The platform leverages artificial intelligence to generate personalized, keyword-optimized resumes tailored to specific industries or job roles. By analyzing user input and job descriptions, it ensures that every resume is crafted to meet the needs of modern recruitment systems, making job applications more efficient and effective
 
 ## **Demo**
+https://github.com/user-attachments/assets/6e8eee76-55f6-400e-b27b-0b0205b04697
 
 ## **Table of Contents**
 
