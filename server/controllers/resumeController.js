@@ -78,4 +78,28 @@ async function getResumeById(req, res) {
     });
 }
 
-module.exports = { createResume, getResumes, updateResume, getResumeById }
+async function deleteResumeById(req, res) {
+    const { resumeId } = req.params;
+
+    if (!resumeId) {
+        return res.status(400).json({
+            message: "Please provide resume id",
+            success: false
+        });
+    }
+
+    const deletedResume = await Resume.findByIdAndDelete(resumeId);
+    if (!deletedResume) {
+        return res.status(404).json({
+            message: "Resume not found",
+            success: false
+        });
+    }
+
+    res.status(200).json({
+        message: "Resume deleted successfully",
+        success: true
+    });
+}
+
+module.exports = { createResume, getResumes, updateResume, getResumeById, deleteResumeById }

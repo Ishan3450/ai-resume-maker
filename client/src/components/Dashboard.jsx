@@ -17,9 +17,12 @@ import SingleResumeCard from "./SingleResumeCard";
 import toast from "react-hot-toast";
 
 const Dashboard = () => {
-  const { user, isSignedIn, isLoaded } = useUser();
   const navigate = useNavigate();
-  if (!isLoaded && !isSignedIn) navigate("/signin");
+  const { user, isSignedIn, isLoaded } = useUser();
+
+  useEffect(() => {
+    if (!isLoaded || !isSignedIn) navigate("/signin");
+  }, []);
 
   const [isOpen, setOpen] = useState(false);
   const [resumeTitle, setResumeTitle] = useState("");
@@ -46,14 +49,15 @@ const Dashboard = () => {
     }
   }
 
-  useEffect(() => {
-    const fetchUserResumes = async () => {
-      const response = await GlobalApi.GetUserResumes(user?.primaryEmailAddress?.emailAddress);
+  const fetchUserResumes = async () => {
+    const response = await GlobalApi.GetUserResumes(user?.primaryEmailAddress?.emailAddress);
 
-      if (response?.data?.success) {
-        setUserResumes(response.data.resumes);
-      }
+    if (response?.data?.success) {
+      setUserResumes(response.data.resumes);
     }
+  }
+
+  useEffect(() => {
     fetchUserResumes();
   }, [user]);
 
@@ -72,7 +76,7 @@ const Dashboard = () => {
             <Plus className="text-gray-400" />
           </div>
 
-          {userResumes.map((resume, index) => <SingleResumeCard resume={resume} key={index} />)}
+          {userResumes.map((resume, index) => <SingleResumeCard resume={resume} key={index} updateResumesList={fetchUserResumes} />)}
         </div>
         <Dialog open={isOpen}>
           <DialogContent>
